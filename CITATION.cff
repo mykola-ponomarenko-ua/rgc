@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+title: "Recursive Group Coding (RGC)"
+message: "If you use this software, please cite the paper below."
+type: software
+authors:
+  - family-names: "Ponomarenko"
+    given-names: "Mykola"
+repository-code: "https://github.com/mykola-ponomarenko-ua/rgc"
+license: "MIT"
+version: "0.1.0"
+date-released: "2026-03-17"
+preferred-citation:
+  type: article
+  authors:
+    - family-names: "Ponomarenko"
+      given-names: "N."
+    - family-names: "Lukin"
+      given-names: "V."
+    - family-names: "Egiazarian"
+      given-names: "K."
+    - family-names: "Astola"
+      given-names: "J."
+  title: "Fast recursive coding based on grouping of Symbols"
+  journal: "Telecommunications and Radio Engineering"
+  volume: 68
+  issue: 20
+  year: 2009
+  start: 1857
+  end: 1863
+
