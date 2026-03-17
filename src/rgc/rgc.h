@@ -5,8 +5,8 @@
 
 #define RGC_VERSION_MAJOR 0
 #define RGC_VERSION_MINOR 1
-#define RGC_VERSION_PATCH 0
-#define RGC_VERSION_STRING "0.1.0"
+#define RGC_VERSION_PATCH 1
+#define RGC_VERSION_STRING "0.1.1"
 
 #ifdef __cplusplus
 extern "C" {

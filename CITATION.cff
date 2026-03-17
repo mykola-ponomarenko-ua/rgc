@@ -7,7 +7,7 @@ authors:
     given-names: "Mykola"
 repository-code: "https://github.com/mykola-ponomarenko-ua/rgc"
 license: "MIT"
-version: "0.1.0"
+version: "0.1.1"
 date-released: "2026-03-17"
 preferred-citation:
   type: article
@@ -27,4 +27,3 @@ preferred-citation:
   year: 2009
   start: 1857
   end: 1863
-

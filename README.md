@@ -1,14 +1,14 @@
 <table>
   <tr>
     <td>
-      <img src="images/rgc_logo.png" width="256">
+      <img src="https://raw.githubusercontent.com/mykola-ponomarenko-ua/rgc/main/images/rgc_logo.png" width="384">
     </td>
     <td>
 Recursive Group Coding (RGC) is an entropy coding algorithm, an alternative to Huffman and Arithmetic Coding (AC). Its key advantage is natural adaptation to the alphabet size of the input data. For large alphabets, RGC can easily deliver a better compression ratio than any other entropy coder, while still running about twice as fast as the simplest static 8-bit AC.    </td>
   </tr>
 </table>
 
-Tiny C library and Python wrapper for the C implementation | v0.1.0 | MIT license
+Tiny C library and Python wrapper for the C implementation | v0.1.1 | MIT license
 
 The table below shows a simple example where RGC beats AC by 15% and even outperforms dictionary-based compressors such as `WinZip` and `WinRar`.
 
@@ -29,7 +29,7 @@ Because of recursion, RGC handles 1024-byte symbols as naturally as ordinary 8-b
 
 The flowchart below shows the main idea of RGC. The algorithm is extremely simple, but very powerful. For full details, see the paper and source code.
 
-<img src="images/rgc_flowchart.png" width="512">
+<img src="https://raw.githubusercontent.com/mykola-ponomarenko-ua/rgc/main/images/rgc_flowchart.png" width="512">
 
 1. Count frequencies of all 8-bit symbols (`0...255`) in the input data.
 2. Divide the 256 symbols into no more than 16 groups with similar frequencies. Each group size is a power of two (`2, 4, 8, ...`). Because frequencies inside a group are not exactly equal, this grouping may increase the average code length by about 1-2%.
@@ -107,4 +107,4 @@ N. Ponomarenko, V. Lukin, K. Egiazarian, J. Astola, Fast recursive coding based 
 
 PDF in the repository:
 
-* `paper/recursive_group_coding_2009.pdf`
+* https://raw.githubusercontent.com/mykola-ponomarenko-ua/rgc/main/paper/recursive_group_coding_2009.pdf
