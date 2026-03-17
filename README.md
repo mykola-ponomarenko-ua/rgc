@@ -1,4 +1,4 @@
-﻿<table>
+<table>
   <tr>
     <td>
       <img src="images/rgc_logo.png" width="256">
@@ -16,12 +16,12 @@ The table below shows a simple example where RGC beats AC by 15% and even outper
 
 | Method                  | Compressed size | Bits per byte | Compared to RGC |
 |-------------------------|-----------------|---------------|-----------------|
-| **RGC**                 | **224 071 bytes** | **1.7**       | —               |
+| **RGC**                 | **224 071 bytes** | **1.7**       | -               |
 | AC                      | 261 695 bytes   | 2.0           | +17 % worse     |
 | WinZip                  | 284 219 bytes   | 2.2           | +27 % worse     |
 | WinRar                  | 308 699 bytes   | 2.4           | +38 % worse     |
 
-The file tst.dat contains quantized DCT coefficients of 32×32 image blocks and is included in the repository, so anyone can reproduce the result in a few seconds. The source image tst.png and the preparation script prep.py are also included.
+The file tst.dat contains quantized DCT coefficients of 32x32 image blocks and is included in the repository, so anyone can reproduce the result in a few seconds. The source image tst.png and the preparation script prep.py are also included.
 
 Because of recursion, RGC handles 1024-byte symbols as naturally as ordinary 8-bit symbols. This is exactly the kind of data where RGC shows its full power, while AC, Huffman coding, and even modern general-purpose compressors fall far behind.
 
@@ -32,7 +32,7 @@ The flowchart below shows the main idea of RGC. The algorithm is extremely simpl
 <img src="images/rgc_flowchart.png" width="512">
 
 1. Count frequencies of all 8-bit symbols (`0...255`) in the input data.
-2. Divide the 256 symbols into no more than 16 groups with similar frequencies. Each group size is a power of two (`2, 4, 8, ...`). Because frequencies inside a group are not exactly equal, this grouping may increase the average code length by about 1–2%.
+2. Divide the 256 symbols into no more than 16 groups with similar frequencies. Each group size is a power of two (`2, 4, 8, ...`). Because frequencies inside a group are not exactly equal, this grouping may increase the average code length by about 1-2%.
 3. Split each symbol into a prefix (group ID) and a suffix (its index inside the group). As a result, the text is split into two streams: prefixes and suffixes.
 4. The suffix length depends on the group size. It ranges from 1 bit for a group of 2 symbols up to 8 bits for a group of 256 symbols. For a group containing only 1 symbol, no suffix is needed. Suffixes have uniform distribution and are not compressible, so the suffix stream is written directly to the output together with the group symbol list.
 5. Since the number of groups does not exceed 16, each prefix fits into 4 bits. This makes it possible to merge neighboring prefixes pairwise: `(prefix1 << 4) | prefix2`.
@@ -44,7 +44,7 @@ RGC usually provides better compression than AC when used as the final entropy c
 
 RGC is also very simple to implement and very fast. With moderate optimization, it runs about twice as fast as a range coder.
 
-At the same time, in its basic form RGC needs statistically homogeneous data to work efficiently. On purely random 8-bit data, RGC will usually lose to AC by about 1–2%. RGC is also not suitable for very small files (a few kilobytes), where the group symbol lists become too large relative to the compressed data.
+At the same time, in its basic form RGC needs statistically homogeneous data to work efficiently. On purely random 8-bit data, RGC will usually lose to AC by about 1-2%. RGC is also not suitable for very small files (a few kilobytes), where the group symbol lists become too large relative to the compressed data.
 
 ### Installation and usage examples
 
@@ -107,4 +107,4 @@ N. Ponomarenko, V. Lukin, K. Egiazarian, J. Astola, Fast recursive coding based 
 
 PDF in the repository:
 
-* `paper/recursive_group_coding.pdf`
+* `paper/recursive_group_coding_2009.pdf`
