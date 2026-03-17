@@ -21,7 +21,7 @@ jobs:
             cibw_build: "cp39-manylinux_x86_64 cp310-manylinux_x86_64 cp311-manylinux_x86_64 cp312-manylinux_x86_64 cp313-manylinux_x86_64"
           - os: macos-latest
             artifact_name: macos-wheels
-            cibw_build: "cp39-macosx_x86_64 cp310-macosx_x86_64 cp311-macosx_x86_64 cp312-macosx_x86_64 cp313-macosx_x86_64"
+            cibw_build: "cp39-macosx_* cp310-macosx_* cp311-macosx_* cp312-macosx_* cp313-macosx_*"
 
     steps:
       - name: Checkout repository
@@ -41,6 +41,7 @@ jobs:
           CIBW_BUILD: ${{ matrix.cibw_build }}
           CIBW_TEST_COMMAND: "pytest {project}/tests"
           CIBW_BEFORE_TEST: "pip install pytest"
+          CIBW_ARCHS_MACOS: "x86_64 arm64"
 
       - name: Upload wheel artifacts
         uses: actions/upload-artifact@v4
