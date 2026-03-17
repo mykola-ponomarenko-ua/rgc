@@ -1,0 +1,89 @@
+name: Publish
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+jobs:
+  build-sdist:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Build source distribution
+        run: |
+          python -m pip install --upgrade pip build
+          python -m build --sdist
+
+      - name: Upload source distribution
+        uses: actions/upload-artifact@v4
+        with:
+          name: sdist
+          path: dist/*.tar.gz
+
+  build-wheels:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            artifact_name: windows-wheels
+            cibw_build: "cp39-win_amd64 cp310-win_amd64 cp311-win_amd64 cp312-win_amd64 cp313-win_amd64"
+          - os: ubuntu-latest
+            artifact_name: linux-wheels
+            cibw_build: "cp39-manylinux_x86_64 cp310-manylinux_x86_64 cp311-manylinux_x86_64 cp312-manylinux_x86_64 cp313-manylinux_x86_64"
+          - os: macos-latest
+            artifact_name: macos-wheels
+            cibw_build: "cp39-macosx_* cp310-macosx_* cp311-macosx_* cp312-macosx_* cp313-macosx_*"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install cibuildwheel
+        run: python -m pip install --upgrade pip cibuildwheel
+
+      - name: Build wheels
+        run: python -m cibuildwheel --output-dir wheelhouse
+        env:
+          CIBW_BUILD: ${{ matrix.cibw_build }}
+          CIBW_TEST_COMMAND: "pytest {project}/tests"
+          CIBW_BEFORE_TEST: "pip install pytest"
+          CIBW_ARCHS_MACOS: "x86_64 arm64"
+
+      - name: Upload wheels
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact_name }}
+          path: wheelhouse/*.whl
+
+  publish:
+    needs: [build-sdist, build-wheels]
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
