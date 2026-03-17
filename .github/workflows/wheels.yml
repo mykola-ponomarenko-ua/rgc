@@ -7,8 +7,21 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-windows-wheels:
-    runs-on: windows-latest
+  build-wheels:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            artifact_name: windows-wheels
+            cibw_build: "cp39-win_amd64 cp310-win_amd64 cp311-win_amd64 cp312-win_amd64 cp313-win_amd64"
+          - os: ubuntu-latest
+            artifact_name: linux-wheels
+            cibw_build: "cp39-manylinux_x86_64 cp310-manylinux_x86_64 cp311-manylinux_x86_64 cp312-manylinux_x86_64 cp313-manylinux_x86_64"
+          - os: macos-latest
+            artifact_name: macos-wheels
+            cibw_build: "cp39-macosx_x86_64 cp310-macosx_x86_64 cp311-macosx_x86_64 cp312-macosx_x86_64 cp313-macosx_x86_64"
 
     steps:
       - name: Checkout repository
@@ -25,12 +38,12 @@ jobs:
       - name: Build wheels
         run: python -m cibuildwheel --output-dir wheelhouse
         env:
-          CIBW_BUILD: "cp39-win_amd64 cp310-win_amd64 cp311-win_amd64 cp312-win_amd64 cp313-win_amd64"
+          CIBW_BUILD: ${{ matrix.cibw_build }}
           CIBW_TEST_COMMAND: "pytest {project}/tests"
           CIBW_BEFORE_TEST: "pip install pytest"
 
       - name: Upload wheel artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: windows-wheels
+          name: ${{ matrix.artifact_name }}
           path: wheelhouse/*.whl
