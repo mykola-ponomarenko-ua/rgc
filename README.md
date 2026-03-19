@@ -8,18 +8,24 @@ Recursive Group Coding (RGC) is an entropy coding algorithm, an alternative to H
   </tr>
 </table>
 
-Tiny C library and Python wrapper for the C implementation | v0.1.1 | MIT license
+#### Tiny C library and Python wrapper for the C implementation | v0.1.2
 
-The table below shows a simple example where RGC beats AC by 15% and even outperforms dictionary-based compressors such as `WinZip` and `WinRar`.
+[![PyPI version](https://img.shields.io/pypi/v/rgclib.svg)](https://pypi.org/project/rgclib/) [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/rgclib.svg)](https://pypi.org/project/rgclib/) [![PyPI - Platforms](https://img.shields.io/badge/platforms-Windows%20%7C%20macOS%20%7C%20Linux-brightgreen)](https://pypi.org/project/rgclib/) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+The table below shows a simple example where RGC beats AC by 15% and even outperforms strong general-purpose compressors like Brotli.
 
 ### Simple benchmark (rgc_demo.c, compression of tst.dat, 1 MB)
 
-| Method                  | Compressed size | Bits per byte | Compared to RGC |
-|-------------------------|-----------------|---------------|-----------------|
-| **RGC**                 | **224 071 bytes** | **1.7**       | -               |
-| AC                      | 261 695 bytes   | 2.0           | +17 % worse     |
-| WinZip                  | 284 219 bytes   | 2.2           | +27 % worse     |
-| WinRar                  | 308 699 bytes   | 2.4           | +38 % worse     |
+| Method                  | Compressed size | Bits per byte | Compared to RGC | Time   |
+|-------------------------|-----------------|---------------|-----------------|--------|
+| **RGC**                 | **224 071 bytes** | **1.7**       | -               | 0.01 s |
+| TurboRC, rcc2senc()     | 237 380 bytes   | 1.8           |  +6 % worse     | 0.03 s |
+| Brotli, quality=11      | 245 358 bytes   | 1.9           | +10 % worse     | 2 s    |
+| Zstd, quality=22        | 257 360 bytes   | 2.0           | +15 % worse     | 0.35 s |
+| AC, 8-bit               | 261 695 bytes   | 2.0           | +17 % worse     | -      |
+| Brotli, quality=9       | 280 777 bytes   | 2.1           | +25 % worse     | 0.08 s |
+| WinZip                  | 284 219 bytes   | 2.2           | +27 % worse     | -      |
+| WinRar                  | 308 699 bytes   | 2.4           | +38 % worse     | -      |
 
 The file tst.dat contains quantized DCT coefficients of 32x32 image blocks and is included in the repository, so anyone can reproduce the result in a few seconds. The source image tst.png and the preparation script prep.py are also included.
 
@@ -103,7 +109,7 @@ The repository also contains an illustrative script explaining how the test file
 
 ### References
 
-N. Ponomarenko, V. Lukin, K. Egiazarian, J. Astola, Fast recursive coding based on grouping of Symbols, Telecommunications and Radio Engineering, Vol. 68, No. 20, 2009, pp. 1857-1863.
+N. Ponomarenko, V. Lukin, K. Egiazarian, J. Astola, Fast recursive coding based on grouping of symbols, Telecommunications and Radio Engineering, Vol. 68, No. 20, 2009, pp. 1857-1863.
 
 PDF in the repository:
 

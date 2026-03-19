@@ -5,8 +5,8 @@
 
 #define RGC_VERSION_MAJOR 0
 #define RGC_VERSION_MINOR 1
-#define RGC_VERSION_PATCH 1
-#define RGC_VERSION_STRING "0.1.1"
+#define RGC_VERSION_PATCH 2
+#define RGC_VERSION_STRING "0.1.2"
 
 #ifdef __cplusplus
 extern "C" {
@@ -14,7 +14,7 @@ extern "C" {
 
 /*
  * Recursive Group Coding (RGC)
- * Copyright (c) 2018-2026 Mykola Ponomarenko
+ * Copyright (c) 2009-2026 Mykola Ponomarenko
  */
 
 /*
