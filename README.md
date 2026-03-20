@@ -18,14 +18,14 @@ The table below shows a simple example where RGC beats AC by 15% and even outper
 
 | Method                  | Compressed size | Bits per byte | Compared to RGC | Time   |
 |-------------------------|-----------------|---------------|-----------------|--------|
-| **RGC**                 | **224 071 bytes** | **1.7**       | -               | 0.01 s |
-| TurboRC, rcc2senc()     | 237 380 bytes   | 1.8           |  +6 % worse     | 0.03 s |
-| Brotli, quality=11      | 245 358 bytes   | 1.9           | +10 % worse     | 2 s    |
-| Zstd, quality=22        | 257 360 bytes   | 2.0           | +15 % worse     | 0.35 s |
-| AC, 8-bit               | 261 695 bytes   | 2.0           | +17 % worse     | -      |
-| Brotli, quality=9       | 280 777 bytes   | 2.1           | +25 % worse     | 0.08 s |
-| WinZip                  | 284 219 bytes   | 2.2           | +27 % worse     | -      |
-| WinRar                  | 308 699 bytes   | 2.4           | +38 % worse     | -      |
+| **RGC**                 | **224 071 bytes** | **1.71**      | -               | 0.01 s |
+| TurboRC, rcc2senc()     | 237 380 bytes   | 1.81          |  +6 % worse     | 0.03 s |
+| Brotli, quality=11      | 245 358 bytes   | 1.87          | +10 % worse     | 2 s    |
+| Zstd, quality=22        | 257 360 bytes   | 1.96          | +15 % worse     | 0.35 s |
+| AC, 8-bit               | 261 695 bytes   | 2.00          | +17 % worse     | -      |
+| Brotli, quality=9       | 280 777 bytes   | 2.14          | +25 % worse     | 0.08 s |
+| WinZip                  | 284 219 bytes   | 2.17          | +27 % worse     | -      |
+| WinRar                  | 308 699 bytes   | 2.36          | +38 % worse     | -      |
 
 The file tst.dat contains quantized DCT coefficients of 32x32 image blocks and is included in the repository, so anyone can reproduce the result in a few seconds. The source image tst.png and the preparation script prep.py are also included.
 
